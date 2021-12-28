@@ -1,0 +1,118 @@
+﻿@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <!--<h2>Welcome to book store application</h2>
+    <h3 style="color:green">This is the home page of the book store application</h3>
+    <h4 style="color:orangered">@DateTime.Now.ToString("dd-MM-yyyy")</h4>
+    <h3>Single line</h3>
+    <h4>Sum=@(5+6)</h4>
+    <h3>Multi line</h3>
+    @{
+        int a = 10;
+        int b = 44;
+        int c = a + b;
+    }
+    <h4>Total=@c</h4>
+    <h4>My email is : ela.ars@gmail.com</h4>
+    <h3>Escape Sequence</h3>
+    <h4>Twitter Account: @@elavarasan</h4>-->
+
+    <h2>Condition Statements</h2>
+    <h3>If Statement</h3>
+    @{
+        int x = 10;
+    }
+
+    @if (x == 10)
+    {<h4>x is equal to @x</h4>}
+    <h3>If else Statement</h3>
+    @{
+        int s = 20;
+        int t = 22;
+    }
+    @if (s + t > 50)
+    {
+        <h4>The sum (@(s + t)) of the value is less than 50</h4>
+    }
+    else
+    {
+        <h4>The sum (@(s + t)) of the value is greater than 50</h4>
+    }
+    <h3>If else if else Statement</h3>
+    @{
+        int q = 32;
+        int r = 45;
+        int st = q + r;
+    }
+    @if (st == 10)
+    {
+        <h4>The sum of value=@st is equal to 10</h4>
+    }
+    else if (st > 10 && st < 20)
+    {
+        <h4>The sum of value=@st is greater than 10 and less than 20</h4>
+    }
+    else
+    {
+        <h4>The sum of value=@st is greater than 20</h4>
+    }
+
+    <h3>Swith case</h3>
+    @{
+        int val = 3;
+    }
+    @switch (val)
+    {
+        case 1:<h2>@val : One </h2> break;
+        case 2: <h2>@val : Two </h2>break;
+        case 3: <h2>@val : Three </h2>break;
+        case 4: <h2>@val : Four </h2>break;
+        case 5: <h2>@val : Five </h2>break;
+        default: <h2>Not in the list </h2>break;
+     }
+    <h3>Ternary Operator</h3>
+    @{
+        string status = "m";
+    }
+    <h4>Marital Status: @(status == "M"?"Married":"Single")</h4>
+    <h2>Loops</h2>
+    <h3>For loop</h3>
+    @for (int i = 0; i <= 4; i++) { 
+        <h4>This is from for loop condition: @i</h4>
+    }
+    @{ 
+        var list = new List<int>() { 11,12, 13,14, 15 };
+
+    }
+    <h3>foreach loop</h3>
+    @foreach (var item in list) { 
+        <h4>This text is from for each loop: @item</h4>
+    }
+    <h3>Showing Image from wwwroot folder</h3>
+    <img src="~/images/logo.png" class="logo" alt="logo" />
+
+    <h3>Showing image from other folder</h3>
+    <img src="~/MyStaticFiles/Desert.jpg" class="desert" alt="desert" />
+
+    <h3>Bootstrap checking</h3>
+    <button id="clickme" class="btn btn-danger btn-md">Click me</button>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#clickme").click(function () {
+                alert("I am clicked");
+            });
+        })
+    </script>
+</body>
+</html>
