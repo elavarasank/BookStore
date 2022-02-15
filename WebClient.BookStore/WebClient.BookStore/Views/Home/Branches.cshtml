@@ -1,0 +1,37 @@
+﻿
+@{
+
+    //Layout = null;
+    //ViewData["BrowserTitle"] = "Branches";
+
+    var book = ViewData["book"] as BookModel;
+}
+
+
+<div class="container">
+    <div class="row">
+    @section pageName{
+        <h2>Branches</h2>
+    }
+    </div>
+    <div class="row" style="margin:0;">
+        @ViewData["viewDataString"]
+    </div>
+    <div class="row" style="margin:0">
+        <div class="text-primary">
+            <div>Id: @book.Id</div>
+            <div>Title: @book.Title</div>
+            <div>Description: @book.Description</div>
+        </div>
+        
+    </div>
+    <div class="row">
+        <ul>
+            <li class="text-danger">Bengaluru</li>
+            <li class="text-primary">Chennai</li>
+            <li class="text-success">Mumbai</li>
+            <li class="text-warning">Noida</li>
+            <li class="text-info">Pondicherry</li>
+        </ul>
+    </div>
+</div>

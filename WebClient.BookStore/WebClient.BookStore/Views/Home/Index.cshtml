@@ -1,16 +1,34 @@
-﻿@{ 
-    Layout = null;
-}
-<!DOCTYPE html>
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration _config
+@inject WebClient.BookStore.Repository.IBookRepository _bookRepo
+@*@inject Microsoft.Extensions.Options.IOptions<NewBookAlertMessageConfig> _newBookIOptions*@
+@inject Microsoft.Extensions.Options.IOptionsSnapshot<NewBookAlertMessageConfig> _newBookIOptions
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/css/Site.css" rel="stylesheet" />
-</head>
-<body>
+@*@{
+        var newBook = _config.GetSection("NewBookAlertMessage");
+    }*@
+
+
+@{
+    var newBook = new NewBookAlertMessageConfig();
+    _config.Bind("NewBookAlertMessage", newBook);
+
+    var newBookIOptions = _newBookIOptions.Get("NewBook");
+    var externalBookIOptions = _newBookIOptions.Get("ExternalBook");
+}
+
+
+
+@*@{
+        Layout = "_Layout";
+    }*@
+
+@{
+    ViewData["BrowserTitle"] = "Home";
+}
+    ViewData["BrowserTitle"] = "Branches";
+
+@*
     <!--<h2>Welcome to book store application</h2>
     <h3 style="color:green">This is the home page of the book store application</h3>
     <h4 style="color:orangered">@DateTime.Now.ToString("dd-MM-yyyy")</h4>
@@ -27,7 +45,7 @@
     <h3>Escape Sequence</h3>
     <h4>Twitter Account: @@elavarasan</h4>-->
 
-    <h2>Condition Statements</h2>
+    <h2 style="color:darkgoldenrod">Conditional statements</h2>
     <h3>If Statement</h3>
     @{
         int x = 10;
@@ -87,15 +105,15 @@
     <h4>Marital Status: @(status == "M"?"Married":"Single")</h4>
     <h2>Loops</h2>
     <h3>For loop</h3>
-    @for (int i = 0; i <= 4; i++) { 
+    @for (int i = 0; i <= 4; i++) {
         <h4>This is from for loop condition: @i</h4>
     }
-    @{ 
+    @{
         var list = new List<int>() { 11,12, 13,14, 15 };
 
     }
     <h3>foreach loop</h3>
-    @foreach (var item in list) { 
+    @foreach (var item in list) {
         <h4>This text is from for each loop: @item</h4>
     }
     <h3>Showing Image from wwwroot folder</h3>
@@ -106,13 +124,144 @@
 
     <h3>Bootstrap checking</h3>
     <button id="clickme" class="btn btn-danger btn-md">Click me</button>
-    <script src="~/lib/jquery/jquery.min.js"></script>
+*@
+
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1>@ViewBag.Title</h1>
+
+        @*
+        @if ((_config.GetValue<bool>("NewBookAlertMessage:ShowMessage")))
+        {
+            <div class="alert alert-success">
+                <h3>@(_config.GetValue<string>("NewBookAlertMessage:AlertMessage"))</h3>
+            </div>
+        }
+        *@
+
+        @*@if ((newBook.GetValue<bool>("ShowMessage")))
+        {
+            <div class="alert alert-success">
+                <h3>@(newBook.GetValue<string>("AlertMessage"))</h3>
+            </div>
+        }*@
+
+        <!--binding configuration-->
+        @*@if (newBook.ShowMessage)
+        {
+            <div class="alert alert-success">
+                <h3>@newBook.AlertMessage</h3>
+            </div>
+        }*@
+
+        <!--Using IOptions Model Configuration-->
+
+        @if (newBookIOptions.ShowMessage)
+        {
+            <div class="alert alert-success">
+                <h3>@newBookIOptions.AlertMessage</h3>
+            </div>
+        }
+
+        @if (externalBookIOptions.ShowMessage)
+        {
+            <div class="alert alert-success">
+                <h3>@externalBookIOptions.AlertMessage</h3>
+            </div>
+        }
+
+
+        
+        <p big>This is custom tag big Attribute</p>
+        <big>This is custom big Tag element</big>
+
+        <h1 style="color:darkorchid">@_config["SampleText"]</h1>
+
+        <div class="text-danger font-weight-bold" style="font-size:30px;">
+            <environment names="Production,Staging">Production Content using name attribute</environment>
+            <environment names="Development">Development Content using name attribute</environment>
+            <environment include="Production,Staging">Production Content using include attribute</environment>
+            <environment include="Development">Development Content using include attribute</environment>
+        </div>
+        <h4>Id:@ViewBag.SampleModel.Id</h4>
+        <h4>Authore:@ViewBag.SampleModel.Author</h4>
+        <h4>Authore:@ViewBag.SampleModel.Description</h4>
+
+        <div class="row">
+            <span>Name: @ViewBag.Data.Name </span>
+            <span>Sports: @ViewBag.Data.Sports </span>
+            <span>Country: @ViewBag.Data.Country </span>
+        </div>
+        <p class="lead text-muted">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut aliquam magna. Curabitur tempor eu justo id volutpat. In hac habitasse platea dictumst. Proin imperdiet dui augue.
+        </p>
+        <p>
+            <a href="" class="btn btn-primary my-2" id="clickme">Search books</a>
+        </p>
+
+    </div>
+    <div class="container">
+
+        @foreach (var book in await _bookRepo.GetAllBooks())
+        {
+            <div class="row">
+                <h4 style="color:brown">@book.Title</h4>
+            </div>
+        }
+
+
+
+    </div>
+
+</section>
+
+<div class="content">
+    <div class="container">
+
+        <div class="row">
+
+            @*@await Component.InvokeAsync("TopBooks",new { count=3 })*@
+            <vc:top-books count="2"></vc:top-books>
+
+            @*@for (var i = 0; i < 3; i++)
+                {
+                    <div class="col-xs-12 col-sm-4">
+                        <partial name="_bookThumbnail" model="new BookModel()" />
+                    </div>
+                }*@
+
+            @*<div class="col-xs-12 col-sm-4" style="padding-top:10px;">
+                    @Html.Partial("_bookThumbnail", new BookModel())
+                </div>
+
+                <div class="col-xs-12 col-sm-4" style="padding-top:10px;">
+                    @await Html.PartialAsync("_bookThumbnail", new BookModel())
+                </div>
+
+                <div class="col-xs-12 col-sm-4" style="padding-top:10px;">
+                    @{
+                        Html.RenderPartial("_bookThumbnail", new BookModel());
+                    }
+                </div>
+
+
+                <div class="col-xs-12 col-sm-4" style="padding-top:15px;">
+                    @{
+                        await Html.RenderPartialAsync("_bookThumbnail", new BookModel());
+                    }
+                </div>*@
+
+
+        </div>
+    </div>
+</div>
+
+@section JScript{
     <script>
         $(document).ready(function () {
             $("#clickme").click(function () {
-                alert("I am clicked");
+                alert("Search Books");
             });
         })
     </script>
-</body>
-</html>
+}

@@ -1,16 +1,13 @@
 ﻿
+@*@{
+    Layout = "_Layout";
+}*@
 @{
-    Layout = null;
+     ViewData["BrowserTitle"] = "Contact Us";
 }
 
-<!DOCTYPE html>
+@section pageName{
+    <h2>Contact Us @ViewData["Name"]</h2>
+}
+<h3>This is contact us page from shared folder</h3>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ContactUs</title>
-</head>
-<body>
-    <h3>This is contact us page from shared folder</h3>
-</body>
-</html>

@@ -1,0 +1,29 @@
+[
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/NewStyle.css",
+      //"wwwroot/css/*.css", //matching name extension will be added
+      "wwwroot/css/Site.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+
+
+  }
+  /* if we want to add for js 
+  ,{
+    "outputFileName": "wwwroot/js/script.min.css",
+    "inputFiles": [
+      "wwwroot/lib/jquery/jquery.js",
+      "wwwroot/twitter-boostrap/js/boostrap.css"
+    ],
+    minify": {
+      "enabled": true,
+        "renameLocals": true
+    }
+
+  }*/
+]

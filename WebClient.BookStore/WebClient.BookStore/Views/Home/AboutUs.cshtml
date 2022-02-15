@@ -1,11 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@*@{
+        Layout = "_Layout";
+    }*@
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>AboutUs</title>
-</head>
-<body>
-    <h3>We are located all over the world!</h3>
-</body>
-</html>
+@section pageName{
+    <h2>About Us</h2>
+}
+@{
+    ViewData["BrowserTitle"] = "About Us";
+    var getData = ViewData["myData"] as BookModel;
+}
+<div class="row" style="display:block;margin:0;">
+    <div>@getData.Id</div>
+    <div>@getData.Title</div>
+    <div>@getData.Description</div>
+    <div>@getData.Author</div>
+</div>
+<h3>We are located all over the world!</h3>
+

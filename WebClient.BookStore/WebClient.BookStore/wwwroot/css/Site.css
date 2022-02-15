@@ -1,4 +1,5 @@
 ﻿body {
+    
 }
 img.logo {
     width: 10%;
@@ -7,4 +8,27 @@ img.logo {
 img.desert {
     width:  20%;
     height: 20%;
+}
+.jumbotron {
+    background: none;
+}
+
+div.content {
+    background-color:lightgray;
+    padding:20px;
+}
+
+footer {
+   
+    bottom:0;
+    width:100%;
+    white-space:nowrap;
+    line-height:60px;
+    background-color:white;
+    
+
+}
+
+select option:disabled {
+    color:indianred;
 }

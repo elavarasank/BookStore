@@ -1,17 +1,41 @@
-﻿
+﻿@model IEnumerable<BookModel>
+@*@{
+        Layout = "_Layout";
+    }*@
 @{
-    Layout = null;
+        ViewData["BrowserTitle"] = "All Books";
+
+
+
 }
 
-<!DOCTYPE html>
+@*@{
+        var parameters = new Dictionary<string,string>(){
+                {
+                    "id","1"
+                },
+                {
+                    "firstname","elavarasan"
+                },
+                {
+                    "lastname","kannayiram"
+                },
+                {
+                    "place","gingee"
+                }
+            };
+    }*@
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>GetAllBooks</title>
-</head>
-<body>
-    <h2>All book list</h2>
-    <button>Click me!</button>
-</body>
-</html>
+
+<div class="container">
+
+    <h3 class="display-4">All books</h3>
+    <div class="row">
+        @foreach(var book in Model){
+        <div class="col-xs-12 col-sm-4" style="padding-top:20px;">
+            <partial name="_bookThumbnail" model="@book" />
+        </div>
+        }
+    </div>
+</div>
+<div><br /></div>
